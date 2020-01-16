@@ -91,6 +91,6 @@ You will also see any lint errors in the console.
 ## Dad Joke Central
 Kyle's favourite dad joke: 
     What time did Sean Connery get to Wimbledon? 
-    Tennish.
+    Tennish. <br />
 Dhruv's favourite dad joke:
     What do you call someone with no body and no nose? Nobody knows
