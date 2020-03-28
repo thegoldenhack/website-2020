@@ -12,6 +12,7 @@ import NotFound from "./views/NotFound";
 import ForgotPasswordPageSend from "./views/ForgotPasswordPageSend"
 import ForgotPasswordPageInput from "./views/ForgotPasswordPageInput"
 import ForgotPasswordPageChange from "./views/ForgotPasswordPageChange"
+import DashboardPage from "./views/DashboardPage";
 
 const routing = (
   <Router>
@@ -23,6 +24,7 @@ const routing = (
       <Route path="/forgotpasswordpagesend" component={ForgotPasswordPageSend} />
       <Route path="/forgotpasswordpageinput" component={ForgotPasswordPageInput} />
       <Route path="/forgotpasswordpagechange" component={ForgotPasswordPageChange} />
+      <Route path="/dashboard" component={DashboardPage} />
       <Route component={NotFound} />
     </Switch>
   </Router>
