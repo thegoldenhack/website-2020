@@ -3,15 +3,17 @@ import { CognitoUserPool } from 'amazon-cognito-identity-js';
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Link, Route, Redirect} from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import LoginPage from "../LoginPage";
 
-const poolData = {
-  UserPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
-  ClientId: process.env.REACT_APP_COGNITO_CLIENT_ID
+var requirements = {
+  firstname: undefined,
+  lastname: undefined,
+  email: undefined,
+  password: undefined,
+  confirmpassword: undefined,
+  termsandconditions: undefined
 };
-
-const UserPool = new CognitoUserPool(poolData);
 
 class RegisterPage extends Component {
   constructor(props) {
@@ -27,30 +29,13 @@ class RegisterPage extends Component {
   }
 
   handleChange = event => {
-    if(event.target.name == "terms"){   
-        this.setState({[event.target.name]: !event.target.checked});
-      }
-    else{
-       this.setState({[event.target.name]: event.target.value});
-    }
+    const { info, value } = event.target;
+
+    this.setState({
+      [info]: value
+    });
+    console.log(this.state);
   };
-
-  handleSubmit = event => {
-    var error_flag = 0;   // if error_flag == 1, then an error in user input is detected.
-    if(this.state.email == null || this.state.firstname == null || this.state.lastname == null
-       || this.state.password == null || this.state.confirmpassword == null || this.state.terms == null ||
-       this.state.email == "" || this.state.firstname == "" || this.state.lastname == ""
-      || this.state.password == "" || this.state.confirmpassword == "" || this.state.terms){
-        error_flag = 1;
-        document.getElementById("display_error").innerHTML = "Not all fields have been filled out.";
-        document.getElementById("display_error").style.color = "#ff0000";
-       }
-
-    if(this.state.password != this.state.confirmpassword && error_flag == 0){
-      error_flag = 1;
-      document.getElementById("display_error").innerHTML = "Password fields do not match";
-      document.getElementById("display_error").style.color = "#ff0000";
-    }
 
     event.preventDefault();
     var attributeList = [];
@@ -131,7 +116,7 @@ class RegisterPage extends Component {
         <Form.Group controlId="inputForm.password">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
-            name="confirmpassword"
+            name="confirm password"
             required
             type="password"
             placeholder=""
@@ -139,9 +124,23 @@ class RegisterPage extends Component {
           />
         </Form.Group>
         <Form.Group controlId="inputForm.termsandconditions">
-          <Form.Group controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="By checking the box you accept terms and conditions" name ="terms" value ="checked" onChange={this.handleChange}/>
-          </Form.Group>
+          <Form.Label>Do you aceept the terms and conditions?</Form.Label>
+          <Form.Control
+            name="termsandconditions"
+            required
+            type="text"
+            placeholder=""
+            onChange={this.handleChange}
+          />
+          <Form.Check
+            inline
+            disables
+            className="radio-btn"
+            label="Yes"
+            type="radio"
+            id="yesTC"
+          />
+          <Form.Check inline disables label="No" type="radio" id="noTC" />
         </Form.Group>
 
         <Button
@@ -150,13 +149,10 @@ class RegisterPage extends Component {
           type="submit"
           onClick={this.handleSubmit.bind(this)}
         >
-          <Link className="btn-link">
+          <Link className="btn-link" to="/login">
             Submit
           </Link>
         </Button>
-        <div class = "display-error" id = "display_error">
-
-        </div>
         <Route path="/login">
           <LoginPage />
         </Route>

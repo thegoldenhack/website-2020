@@ -6,12 +6,10 @@ import { Link, Route } from "react-router-dom";
 import ForgotPasswordPageSend from "../ForgotPasswordPageSend/index";
 import HomePage from "../HomePage";
 
-const poolData = {
-  UserPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
-  ClientId: process.env.REACT_APP_COGNITO_CLIENT_ID
+var requirements = {
+  email: undefined,
+  password: undefined
 };
-
-const UserPool = new CognitoUserPool(poolData);
 
 class LoginPage extends Component {
   constructor(props) {
@@ -23,26 +21,13 @@ class LoginPage extends Component {
   }
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    const { info, value } = event.target;
+
+    this.setState({
+      [info]: value
+    });
+    console.log(this.state);
   };
-
-  handleSubmit(event) {
-    event.preventDefault();
-    var attributeList = [];
-    var dataEmail = {
-      Name: "email",
-      Value: this.state.email
-    };
-    var dataPassword = {
-      Name: "password",
-      Value: this.state.password
-    };
-    attributeList.push(dataEmail);
-    attributeList.push(dataPassword);
-
-    var authenticationDetails = new AuthenticationDetails(
-      attributeList
-    );
 
     var userData = {
       Username: this.state.email,
@@ -96,6 +81,58 @@ class LoginPage extends Component {
           </Link>
         </Button>
         <div class="display-error" id="display_error"></div>
+        <Route path="/">
+          <HomePage />
+        </Route>
+        <Button
+          className="submit-btn"
+          variant="success"
+          type="submit"
+          onClick={this.handleSubmit.bind(this)}
+        >
+          <Link className="btn-link" to="/forgotpassword">
+            Forgot Password?
+          </Link>
+        </Button>
+        <Route path="/ForgotPasswordPageSend">
+          <ForgotPasswordPageSend />
+        </Route>
+      </Form>
+    );
+  }
+  render() {
+    return (
+      <Form className="inputForm">
+        <Form.Group controlId="inputForm.email">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            required
+            name="email"
+            type="email"
+            placeholder=""
+            onChange={this.handleChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="inputForm.password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            name="password"
+            required
+            type="password"
+            placeholder=""
+            onChange={this.handleChange}
+          />
+        </Form.Group>
+        <Button
+          className="submit-btn"
+          variant="success"
+          type="submit"
+          onClick={this.handleSubmit.bind(this)}
+        >
+          <Link className="btn-link" to="/login">
+            Login
+          </Link>
+        </Button>
         <Route path="/">
           <HomePage />
         </Route>
