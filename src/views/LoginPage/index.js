@@ -6,10 +6,6 @@ import { Link, Route } from "react-router-dom";
 import ForgotPasswordPageSend from "../ForgotPasswordPageSend/index";
 import HomePage from "../HomePage";
 
-var requirements = {
-  email: undefined,
-  password: undefined
-};
 
 class LoginPage extends Component {
   constructor(props) {
@@ -29,76 +25,9 @@ class LoginPage extends Component {
     console.log(this.state);
   };
 
-    var userData = {
-      Username: this.state.email,
-      Pool: UserPool
-    };
-
-    var cognitoUser = new CognitoUser(userData);
-
-    cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: function(result) {
-        var accessToken = result.getAccessToken().getJwtToken();
-        localStorage.setItem('accessToken', accessToken);
-      },
-
-      onFailure: function(err) {
-        document.getElementById("display_error").innerHTML = "Email or Password is Incorrect";
-      }
-    });
-  }
-  render() {
-    return (
-      <Form className="inputForm">
-        <Form.Group controlId="inputForm.email">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            required
-            name="email"
-            type="email"
-            placeholder=""
-            onChange={this.handleChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="inputForm.password">
-          <Form.Label>Password</Form.Label>
-          <Form.Controllwear
-            name="password"
-            required
-            type="password"
-            placeholder=""
-            onChange={this.handleChange}
-          />
-        </Form.Group>
-        <Button
-          className="submit-btn"
-          variant="success"
-          type="submit"
-          onClick={this.handleSubmit.bind(this)}
-        >
-          <Link className="btn-link" to="/login">
-            Login
-          </Link>
-        </Button>
-        <div class="display-error" id="display_error"></div>
-        <Route path="/">
-          <HomePage />
-        </Route>
-        <Button
-          className="submit-btn"
-          variant="success"
-          type="submit"
-          onClick={this.handleSubmit.bind(this)}
-        >
-          <Link className="btn-link" to="/forgotpassword">
-            Forgot Password?
-          </Link>
-        </Button>
-        <Route path="/ForgotPasswordPageSend">
-          <ForgotPasswordPageSend />
-        </Route>
-      </Form>
-    );
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log(this.state);
   }
   render() {
     return (

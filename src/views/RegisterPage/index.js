@@ -6,14 +6,7 @@ import Button from "react-bootstrap/Button";
 import { Link, Route } from "react-router-dom";
 import LoginPage from "../LoginPage";
 
-var requirements = {
-  firstname: undefined,
-  lastname: undefined,
-  email: undefined,
-  password: undefined,
-  confirmpassword: undefined,
-  termsandconditions: undefined
-};
+
 
 class RegisterPage extends Component {
   constructor(props) {
@@ -38,35 +31,7 @@ class RegisterPage extends Component {
   };
 
     event.preventDefault();
-    var attributeList = [];
-    
-    var dataEmail ={
-      Name: 'email',
-      Value: this.state.email
-    };
-    var dataPersonalName ={
-      Name: 'name',
-      Value: this.state.firstname
-    };
-    var dataFamilyName = {
-      Name: 'family_name',
-      Value: this.state.lastname
-    };
-    attributeList.push(dataEmail);
-    attributeList.push(dataPersonalName);
-    attributeList.push(dataFamilyName);
-    UserPool.signUp(this.state.firstname, this.state.password, attributeList, null, (err, data) => {
-      if (err){
-        if(err.message != null && error_flag == 0){
-          error_flag = 1;
-          document.getElementById("display_error").innerHTML = err.message;
-          document.getElementById("display_error").style.color = "#ff0000";
-        }
-      }
-      if(error_flag == 0) this.props.history.push('/');
-    });
-
-   
+    console.log(this.state);
   }
   render() {
     return (
