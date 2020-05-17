@@ -14,6 +14,7 @@ import { ethnicity } from "./ethnicity.js";
 import { degrees } from "./degrees.js";
 import { jwt } from "jsonwebtoken";
 import { jwkToPem } from "jwk-to-pem";
+import { request } from "request";
 
 function ValidateToken(token) {
   request(
@@ -23,7 +24,7 @@ function ValidateToken(token) {
     },
     function (error, response, body) {
       if (!error && response.statusCode === 200) {
-        pems = {};
+        let pems = {};
         var keys = body["keys"];
         for (var i = 0; i < keys.length; i++) {
           //Convert each key to PEM
