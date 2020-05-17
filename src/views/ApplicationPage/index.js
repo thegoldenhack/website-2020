@@ -12,7 +12,57 @@ import { SchoolsLVpair } from "./schools.js";
 import { Majors } from "./majors.js";
 import { ethnicity } from "./ethnicity.js";
 import { degrees } from "./degrees.js";
+import { jwt } from "jsonwebtoken";
+import { jwkToPem } from "jwk-to-pem";
 
+function ValidateToken(token) {
+  request(
+    {
+      url: `https://cognito-idp.${process.env.AWS_REGION}.amazonaws.com/${process.env.REACT_APP_COGNITO_USER_POOL_ID}/.well-known/jwks.json`,
+      json: true,
+    },
+    function (error, response, body) {
+      if (!error && response.statusCode === 200) {
+        pems = {};
+        var keys = body["keys"];
+        for (var i = 0; i < keys.length; i++) {
+          //Convert each key to PEM
+          var key_id = keys[i].kid;
+          var modulus = keys[i].n;
+          var exponent = keys[i].e;
+          var key_type = keys[i].kty;
+          var jwk = { kty: key_type, n: modulus, e: exponent };
+          var pem = jwkToPem(jwk);
+          pems[key_id] = pem;
+        }
+        //validate the token
+        var decodedJwt = jwt.decode(token, { complete: true });
+        if (!decodedJwt) {
+          console.log("Not a valid JWT token");
+          return;
+        }
+
+        var kid = decodedJwt.header.kid;
+        var pem = pems[kid];
+        if (!pem) {
+          console.log("Invalid token");
+          return;
+        }
+
+        jwt.verify(token, pem, function (err, payload) {
+          if (err) {
+            console.log("Invalid Token.");
+          } else {
+            console.log("Valid Token.");
+            console.log(payload);
+          }
+        });
+      } else {
+        console.log("Error! Unable to download JWKs");
+      }
+    }
+  );
+}
 export default class application extends React.Component {
   constructor(props) {
     super(props);
@@ -40,6 +90,7 @@ export default class application extends React.Component {
   }
 
   handleChangedate = (date) => {
+    console.log(localStorage.getItem("accessToken"));
     this.setState({
       startDate: date,
     });
@@ -85,7 +136,8 @@ export default class application extends React.Component {
         "Not all required fields have been filled out.";
     }
     if (!this.state.Github_URL.startsWith("https://www.github.com/")) {
-      document.getElementById("display_error").innerHTML = "Invalid URL entered";
+      document.getElementById("display_error").innerHTML =
+        "Invalid URL entered";
     }
     if (!this.state.LinkedIn_URL.startsWith("https://www.linkedin.com/in/")) {
       document.getElementById("display_error").innerHTML =
