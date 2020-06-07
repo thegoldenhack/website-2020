@@ -15,7 +15,21 @@ import { degrees } from "./degrees.js";
 import { jwt } from "jsonwebtoken";
 import { jwkToPem } from "jwk-to-pem";
 import { request } from "request";
+var AWS = require("aws-sdk");
 
+let awsConfig = {
+  region: "us-east-1",
+  endpoint: "http://dynamodb.us-east-2.amazonaws.com",
+  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
+  secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
+};
+
+AWS.config.update(awsConfig);
+let gender = [
+  { label: "Male", value: "Male" },
+  { label: "Female", value: "Female" },
+  { label: "Other", value: "Other" },
+];
 function ValidateToken(token) {
   request(
     {
@@ -69,16 +83,11 @@ export default class application extends React.Component {
     super(props);
     this.state = {
       gradDate: null,
-      selectedOption: null,
-      schoolOption: null,
-      degreeOption: null,
-      programOption: null,
       Birthdate: undefined,
       Gender: undefined,
       Ethnicity: undefined,
       School: undefined,
       Degree: undefined,
-      Graduation_year: undefined,
       Program: undefined,
       Github_URL: undefined,
       LinkedIn_URL: undefined,
@@ -93,12 +102,11 @@ export default class application extends React.Component {
   handleChangedate = (date) => {
     console.log(localStorage.getItem("accessToken"));
     this.setState({
-      startDate: date,
+      Birthdate: date,
     });
   };
 
   handleChangedateGrad = (date) => {
-    console.log("ASDAS");
     this.setState({
       gradDate: date,
     });
@@ -106,59 +114,96 @@ export default class application extends React.Component {
 
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(this.state);
   };
 
-  handleChangeschool = (schoolOption) => {
-    this.setState({ schoolOption: schoolOption });
+  handleChangeschool = (School) => {
+    this.setState({ School: School });
   };
 
-  handleChangedegree = (degreeOption) => {
-    this.setState({ degreeOption: degreeOption });
+  handleChangedegree = (Degree) => {
+    this.setState({ Degree: Degree });
   };
-  handleChangeEthnicity = (selectedOption) => {
-    this.setState({ selectedOption: selectedOption });
+  handleChangeEthnicity = (Ethnicity) => {
+    this.setState({ Ethnicity: Ethnicity });
   };
 
-  handleChangeprograms = (programOption) => {
-    this.setState({ programOption: programOption });
+  handleChangeprograms = (Program) => {
+    this.setState({ Program: Program });
+  };
+
+  handleChangeGender = (Gender) => {
+    this.setState({ Gender: Gender });
   };
   handleSubmit = (event) => {
     event.preventDefault();
     if (
       this.state.Gender == undefined ||
-      this.state.ethnicity == undefined ||
-      this.state.schoolOption == undefined ||
+      this.state.Ethnicity == undefined ||
+      this.state.School == undefined ||
       this.state.Degree == undefined ||
-      this.state.Graduation_year == undefined ||
+      this.state.gradDate == undefined ||
       this.state.Program == undefined
     ) {
       document.getElementById("display_error").innerHTML =
         "Not all required fields have been filled out.";
+      return;
     }
     if (!this.state.Github_URL.startsWith("https://www.github.com/")) {
       document.getElementById("display_error").innerHTML =
         "Invalid URL entered";
+      return;
     }
     if (!this.state.LinkedIn_URL.startsWith("https://www.linkedin.com/in/")) {
       document.getElementById("display_error").innerHTML =
         "Invalid URL entered";
+      return;
     }
     if (!this.state.Dribbble_URL.startsWith("https://www.dribbble.com/")) {
       document.getElementById("display_error").innerHTML =
         "Invalid URL entered";
+      return;
     }
     if (!this.state.Link_to_resume.startsWith("https://")) {
       document.getElementById("display_error").innerHTML =
         "Invalid URL entered";
+      return;
     }
     if (this.state.Why_GoldenHack.length > 1000) {
       document.getElementById("display_error").innerHTML =
         "Over 1000 character limit for 'Why Golden Hack'";
+      return;
     }
 
-    console.log("ASDAS");
-    console.log(this.state);
+    let docClient = new AWS.DynamoDB.DocumentClient();
+    let input = {
+      email: "d", // How do i get the email from JWT
+      Birthdate: this.state.Birthdate.toString(),
+      Gender: this.state.Gender.value,
+      Ethnicity: this.state.Ethnicity.value,
+      School: this.state.School.value,
+      Degree: this.state.Degree.value,
+      Graduation: this.state.gradDate.toString(),
+      Program: this.state.Program.value,
+      GithubURL: this.state.Github_URL,
+      LinkedInURL: this.state.LinkedIn_URL,
+      DribbbleURL: this.state.Dribbble_URL,
+      PersonalURL: this.state.Personal_URL,
+      ResumeURL: this.state.Link_to_resume,
+      WhyGoldenHack: this.state.Why_GoldenHack,
+      submitted: true,
+    };
+    var params = {
+      TableName: process.env.REACT_APP_DYNAMO_DB_TABLE,
+      Item: input,
+    };
+    docClient.put(params, function (err, data) {
+      if (err) {
+        document.getElementById("display_error").innerHTML = err;
+      } else {
+        document.getElementById("display_error").innerHTML =
+          "Submitted Successfully";
+      }
+    });
   };
 
   render() {
@@ -168,38 +213,37 @@ export default class application extends React.Component {
           <Form.Label>Birthday</Form.Label>
           <br></br>
           <DatePicker
-            selected={this.state.startDate}
+            selected={this.state.Birthdate}
             onChange={this.handleChangedate}
           />
         </Form.Group>
 
         <Form.Group controlId="inputForm.firstname">
           <Form.Label>Gender</Form.Label>
-          <br></br>
-          <select>
-            <option value="Female">Female</option>
-            <option value="Male">Male</option>
-            <option value="Other">Other</option>
-          </select>
+          <Select
+            value={this.state.Gender}
+            onChange={this.handleChangeGender}
+            options={gender}
+          />
         </Form.Group>
 
         <Form.Label>Ethnicity</Form.Label>
         <Select
-          value={this.state.selectedOption}
+          value={this.state.Ethnicity}
           onChange={this.handleChangeEthnicity}
           options={ethnicity}
         />
         <Form.Label>School</Form.Label>
         <Select
           name="schoolOption"
-          value={this.state.schoolOption}
+          value={this.state.School}
           onChange={this.handleChangeschool}
           options={SchoolsLVpair}
         />
 
         <Form.Label>Degree</Form.Label>
         <Select
-          value={this.state.degreeOption}
+          value={this.state.Degree}
           onChange={this.handleChangedegree}
           options={degrees}
         />
@@ -213,7 +257,7 @@ export default class application extends React.Component {
         <Form.Label>Program</Form.Label>
         <Select
           name="programOption"
-          value={this.state.programOption}
+          value={this.state.Program}
           onChange={this.handleChangeprograms}
           options={Majors}
         />
