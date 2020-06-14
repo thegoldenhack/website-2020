@@ -27,7 +27,7 @@ let awsConfig = {
 
 AWS.config.update(awsConfig);
 
-export default class application extends Component {
+export default class Application extends Component {
   constructor(props) {
     super(props);
     this.state = {
