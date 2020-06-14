@@ -16,6 +16,17 @@ import SubmitButton from "../../components/SubmitButton";
 
 import styles from "./styles.module.css";
 
+var AWS = require("aws-sdk");
+
+let awsConfig = {
+  region: "us-east-1",
+  endpoint: "http://dynamodb.us-east-2.amazonaws.com",
+  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
+  secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
+};
+
+AWS.config.update(awsConfig);
+
 export default class application extends Component {
   constructor(props) {
     super(props);
@@ -72,33 +83,47 @@ export default class application extends Component {
     console.log("Submitting!");
     event.preventDefault();
     if (
-      this.state.Gender == undefined ||
+      this.state.gender == undefined ||
       this.state.ethnicity == undefined ||
-      this.state.schoolOption == undefined ||
-      this.state.Degree == undefined ||
-      this.state.Graduation_year == undefined ||
-      this.state.Program == undefined
+      this.state.school == undefined ||
+      this.state.degree == undefined ||
+      this.state.graduation_year == undefined ||
+      this.state.program == undefined ||
+      this.state.why_goldenHack == undefined
     ) {
       document.getElementById("display_error").innerHTML =
         "Not all required fields have been filled out.";
+      return;
     }
-    if (!this.state.Github_URL.startsWith("https://www.github.com/")) {
+    if (
+      this.state.github_url != undefined &&
+      !this.state.github_url.startsWith("https://www.github.com/")
+    ) {
       document.getElementById("display_error").innerHTML =
         "Invalid URL entered";
     }
-    if (!this.state.LinkedIn_URL.startsWith("https://www.linkedin.com/in/")) {
+    if (
+      this.state.linkedin_url != undefined &&
+      !this.state.linkedin_url.startsWith("https://www.linkedin.com/in/")
+    ) {
       document.getElementById("display_error").innerHTML =
         "Invalid URL entered";
     }
-    if (!this.state.Dribbble_URL.startsWith("https://www.dribbble.com/")) {
+    if (
+      this.state.dribbble_url != undefined &&
+      !this.state.dribbble_url.startsWith("https://www.dribbble.com/")
+    ) {
       document.getElementById("display_error").innerHTML =
         "Invalid URL entered";
     }
-    if (!this.state.Link_to_resume.startsWith("https://")) {
+    if (
+      this.state.link_to_resume != undefined &&
+      !this.state.link_to_resume.startsWith("https://")
+    ) {
       document.getElementById("display_error").innerHTML =
         "Invalid URL entered";
     }
-    if (this.state.Why_GoldenHack.length > 1000) {
+    if (this.state.why_goldenHack.length > 1000) {
       document.getElementById("display_error").innerHTML =
         "Over 1000 character limit for 'Why Golden Hack'";
     }
@@ -106,6 +131,36 @@ export default class application extends Component {
     this.setState({ submitted: true });
 
     console.log(this.state);
+    let docClient = new AWS.DynamoDB.DocumentClient();
+    let input = {
+      email: "dh", // How do i get the email from JWT
+      Birthdate: this.state.birth_date.toString(),
+      Gender: this.state.gender.value,
+      Ethnicity: this.state.ethnicity[0],
+      School: this.state.school[0],
+      Degree: this.state.degree.value,
+      Graduation: this.state.graduation_year.toString(),
+      Program: this.state.program[0],
+      GithubURL: this.state.github_url,
+      LinkedInURL: this.state.linkedIn_url,
+      DribbbleURL: this.state.dribbble_url,
+      PersonalURL: this.state.personal_url,
+      ResumeURL: this.state.link_to_resume,
+      WhyGoldenHack: this.state.why_goldenHack,
+      submitted: true,
+    };
+    var params = {
+      TableName: process.env.REACT_APP_DYNAMO_DB_TABLE,
+      Item: input,
+    };
+    docClient.put(params, function (err, data) {
+      if (err) {
+        document.getElementById("display_error").innerHTML = err;
+      } else {
+        document.getElementById("display_error").innerHTML =
+          "Submitted Successfully";
+      }
+    });
   };
 
   handleSave = () => {
