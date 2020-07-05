@@ -42,7 +42,7 @@ const userPool = new CognitoUserPool(poolData);
 var cognitoUser = userPool.getCurrentUser();
 var dynamoDB = new AWS.DynamoDB(dynamoDbData);
 var isLoggedIn = false;
-
+let isSubmitted = false;
 export default class application extends Component {
   constructor(props) {
     super(props);
@@ -72,7 +72,6 @@ export default class application extends Component {
             return;
           } else {
             this.state.email = session.idToken.payload.email;
-            console.log(this.state.email);
 
             var params = {
               Key: {
@@ -86,8 +85,11 @@ export default class application extends Component {
               if (err) {
                 console.log(err);
               }
-
-              if (data.Item.submitted.BOOL) {
+              if (
+                data.Item != undefined &&
+                (data.Item.submitted.BOOL || data.Item.saved.BOOL)
+              ) {
+                isSubmitted = true;
                 this.setState({
                   saved: false,
                   submitted: true,
@@ -98,7 +100,7 @@ export default class application extends Component {
                   degree: data.Item.Degree.S,
                   graduation_year: data.Item.Graduation.S,
                   program: data.Item.Program.S,
-                  github_url: "ASDA",
+                  github_url: { value: data.Item.Program.S },
                   linkedin_url: data.Item.LinkedInURL.S,
                   dribbble_url: data.Item.DribbbleURL.S,
                   personal_url: data.Item.PersonalURL.S,
@@ -124,17 +126,15 @@ export default class application extends Component {
       });
     }
   }
-  componentDidMount() {
-    this.setState({ github_url: "ASD" });
-  }
 
   // React-select handles events a little weirdly (ie it doesn't contain the name
   // of the field which was passed in props), so when an input field uses
   // react-select we get another field which does contain the name, and we have
   // to do a little extra work.
   handleChange = (event, extra) => {
+    if (this.state.submitted) return; // If application is submitted, applicant cannot edit.
     if (extra != null) {
-      // If it's possible to select mutliple options, then the event
+      // If it's possible to select multiple options, then the event
       // will be an array (even if only 1 option was selected)
       if (event.length > 0) {
         var arr = [];
@@ -163,8 +163,10 @@ export default class application extends Component {
   };
 
   handleSubmit = (event) => {
-    console.log("Submitting!");
     event.preventDefault();
+    if (isSubmitted) {
+      return;
+    }
     if (
       this.state.gender == undefined ||
       this.state.ethnicity == undefined ||
@@ -208,7 +210,6 @@ export default class application extends Component {
       document.getElementById("display_error").innerHTML =
         "Over 1000 character limit for 'Why Golden Hack'";
     }
-
     let input = {
       email: {
         S: this.state.email,
@@ -220,10 +221,10 @@ export default class application extends Component {
         S: this.state.gender,
       },
       Ethnicity: {
-        S: this.state.ethnicity[0],
+        S: this.state.ethnicity[1],
       },
       School: {
-        S: this.state.school[0],
+        S: this.state.school[1],
       },
       Degree: {
         S: this.state.degree,
@@ -232,25 +233,25 @@ export default class application extends Component {
         S: this.state.graduation_year.toString(),
       },
       Program: {
-        S: this.state.program[0],
+        S: this.state.program[1],
       },
       GithubURL: {
-        S: this.state.github_url || "empty",
+        S: this.state.github_url || "-",
       },
       LinkedInURL: {
-        S: this.state.linkedIn_url || "empty",
+        S: this.state.linkedIn_url || "-",
       },
       DribbbleURL: {
-        S: this.state.dribbble_url || "empty",
+        S: this.state.dribbble_url || "-",
       },
       PersonalURL: {
-        S: this.state.personal_url || "empty",
+        S: this.state.personal_url || "-",
       },
       ResumeURL: {
-        S: this.state.link_to_resume || "empty",
+        S: this.state.link_to_resume || "-",
       },
       WhyGoldenHack: {
-        S: this.state.why_goldenHack,
+        S: this.state.why_goldenHack || "-",
       },
       submitted: {
         BOOL: true,
@@ -271,8 +272,6 @@ export default class application extends Component {
     this.setState({
       submitted: true,
     });
-
-    console.log(this.state);
   };
 
   handleSave = () => {
@@ -287,10 +286,10 @@ export default class application extends Component {
         S: this.state.gender,
       },
       Ethnicity: {
-        S: this.state.ethnicity[0],
+        S: this.state.ethnicity[1],
       },
       School: {
-        S: this.state.school[0],
+        S: this.state.school[1],
       },
       Degree: {
         S: this.state.degree,
@@ -299,28 +298,31 @@ export default class application extends Component {
         S: this.state.graduation_year.toString(),
       },
       Program: {
-        S: this.state.program[0],
+        S: this.state.program[1],
       },
       GithubURL: {
-        S: this.state.github_url || "empty",
+        S: this.state.github_url || "-",
       },
       LinkedInURL: {
-        S: this.state.linkedIn_url || "empty",
+        S: this.state.linkedIn_url || "-",
       },
       DribbbleURL: {
-        S: this.state.dribbble_url || "empty",
+        S: this.state.dribbble_url || "-",
       },
       PersonalURL: {
-        S: this.state.personal_url || "empty",
+        S: this.state.personal_url || "-",
       },
       ResumeURL: {
-        S: this.state.link_to_resume || "empty",
+        S: this.state.link_to_resume || "-",
       },
       WhyGoldenHack: {
-        S: this.state.why_goldenHack,
+        S: this.state.why_goldenHack || "-",
       },
       submitted: {
         BOOL: false,
+      },
+      saved: {
+        BOOL: true,
       },
     };
     var params = {
@@ -335,7 +337,6 @@ export default class application extends Component {
     this.setState({
       saved: true,
     });
-    console.log(this.state);
   };
 
   displayStatus = () => {
@@ -362,10 +363,7 @@ export default class application extends Component {
               {" "}
               The GoldenHack 2020 Application{" "}
             </h2>{" "}
-            <p>
-              Little blurb or something about how after you submit you can 't
-              edit your application.{" "}
-            </p>{" "}
+            <p>Application cannot be edited once submitted! </p>{" "}
             {/* Birthday */}{" "}
             <InputFieldApplication
               label="Birthday"
@@ -449,7 +447,7 @@ export default class application extends Component {
               required={false}
               placeholder={"https://github.com/"}
               value={this.state.github_url}
-              key={this.state.github_url}
+              component={this.state.github_url}
               onChange={(event) => this.handleChange(event, null)}
             />{" "}
             {/* LinkedIn URL */}{" "}
@@ -469,7 +467,7 @@ export default class application extends Component {
               required={false}
               placeholder={"https://www.dribbble.com/"}
               value={this.state.dribbble_url}
-              key={this.state.dribble_url}
+              key={this.state.dribbble_url}
               onChange={(event) => this.handleChange(event, null)}
             />{" "}
             {/* Personal URL */}{" "}
