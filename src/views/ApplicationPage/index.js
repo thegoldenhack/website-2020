@@ -62,6 +62,7 @@ export default class application extends Component {
       personal_url: undefined,
       link_to_resume: undefined,
       why_goldenHack: undefined,
+      loaded: undefined,
     };
 
     if (cognitoUser != null) {
@@ -85,14 +86,16 @@ export default class application extends Component {
               if (err) {
                 console.log(err);
               }
+              if (data.Item != undefined && data.Item.submitted.BOOL) {
+                isSubmitted = data.Item.submitted.BOOL;
+              }
+              console.log(isSubmitted);
               if (
                 data.Item != undefined &&
                 (data.Item.submitted.BOOL || data.Item.saved.BOOL)
               ) {
-                isSubmitted = true;
                 this.setState({
                   saved: false,
-                  submitted: true,
                   birth_date: data.Item.Birthdate.S,
                   gender: data.Item.Gender.S,
                   ethnicity: data.Item.Ethnicity.S,
@@ -100,12 +103,13 @@ export default class application extends Component {
                   degree: data.Item.Degree.S,
                   graduation_year: data.Item.Graduation.S,
                   program: data.Item.Program.S,
-                  github_url: { value: data.Item.Program.S },
+                  github_url: data.Item.GithubURL.S,
                   linkedin_url: data.Item.LinkedInURL.S,
                   dribbble_url: data.Item.DribbbleURL.S,
                   personal_url: data.Item.PersonalURL.S,
                   link_to_resume: data.Item.ResumeURL.S,
                   why_goldenHack: data.Item.WhyGoldenHack.S,
+                  loaded: true,
                 });
               }
             });
@@ -268,9 +272,6 @@ export default class application extends Component {
         document.getElementById("display_error").innerHTML =
           "Submitted Successfully";
       }
-    });
-    this.setState({
-      submitted: true,
     });
   };
 
@@ -447,7 +448,7 @@ export default class application extends Component {
               required={false}
               placeholder={"https://github.com/"}
               value={this.state.github_url}
-              component={this.state.github_url}
+              key={this.state.loaded}
               onChange={(event) => this.handleChange(event, null)}
             />{" "}
             {/* LinkedIn URL */}{" "}
@@ -457,7 +458,7 @@ export default class application extends Component {
               required={false}
               placeholder={"https://www.linkedin.com/in/"}
               value={this.state.linkedin_url}
-              key={this.state.linkedin_url}
+              key={this.state.loaded}
               onChange={(event) => this.handleChange(event, null)}
             />{" "}
             {/* Dribbble URL */}{" "}
@@ -467,7 +468,7 @@ export default class application extends Component {
               required={false}
               placeholder={"https://www.dribbble.com/"}
               value={this.state.dribbble_url}
-              key={this.state.dribbble_url}
+              key={this.state.loaded}
               onChange={(event) => this.handleChange(event, null)}
             />{" "}
             {/* Personal URL */}{" "}
@@ -477,7 +478,7 @@ export default class application extends Component {
               required={false}
               placeholder={"https://"}
               value={this.state.personal_url}
-              key={this.state.personal_url}
+              key={this.state.loaded}
               onChange={(event) => this.handleChange(event, null)}
             />{" "}
             {/* Link to Resume */}{" "}
@@ -487,7 +488,7 @@ export default class application extends Component {
               required={false}
               placeholder={"https://"}
               value={this.state.link_to_resume}
-              key={this.state.link_to_resume}
+              key={this.state.loaded}
               onChange={(event) => this.handleChange(event, null)}
             />{" "}
             {/* Why The GoldenHack? */}{" "}
@@ -497,7 +498,7 @@ export default class application extends Component {
               required={true}
               placeholder={"Give us your best answer in 1000 words or less."}
               value={this.state.why_goldenHack}
-              key={this.state.why_goldenHack}
+              key={this.state.loaded}
               onChange={(event) => this.handleChange(event, null)}
               longAnswer={true}
             />{" "}
