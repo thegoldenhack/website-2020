@@ -9,7 +9,11 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 
 import styles from "./styles.module.css";
 
-import { getJwt, getEmailFromJwt, getNameFromJwt } from "../../utils/Cognito/index.js";
+import {
+  getJwt,
+  getEmailFromJwt,
+  getNameFromJwt,
+} from "../../utils/Cognito/index.js";
 import { getApplication } from "../../utils/API/index.js";
 
 const applicationDeadline = new Date(
@@ -40,28 +44,66 @@ export default class DashboardPage extends Component {
     getApplication(
       getEmailFromJwt(),
       (data) => {
+        if (data.accepted) {
+          this.setState({
+            status: "complete",
+            buttonStatus: "disabled",
+            loadComplete: true,
+            accepted: true,
+          });
+        }
+
         if (today > applicationDeadline) {
           if (data.accepted) {
-            this.setState({ status: "complete", buttonStatus: "disabled", loadComplete: true, accepted: true });
-          }
-          else if (!data.accepted) {
-            this.setState({ status: "complete", buttonStatus: "disabled", loadComplete: true, accepted: false });
-          }
-          else if (!data.submitted) {
-            this.setState({ status: "incomplete", buttonStatus: "disabled", loadComplete: true });
+            this.setState({
+              status: "complete",
+              buttonStatus: "disabled",
+              loadComplete: true,
+              accepted: true,
+            });
+          } else if (!data.accepted) {
+            this.setState({
+              status: "complete",
+              buttonStatus: "disabled",
+              loadComplete: true,
+              accepted: false,
+            });
+          } else if (!data.submitted) {
+            this.setState({
+              status: "incomplete",
+              buttonStatus: "disabled",
+              loadComplete: true,
+            });
           } else {
-            this.setState({ status: "complete", buttonStatus: "disabled", loadComplete: true });
+            this.setState({
+              status: "complete",
+              buttonStatus: "disabled",
+              loadComplete: true,
+            });
           }
         } else {
           if (!data || !data.submitted) {
-            this.setState({ status: "incomplete", buttonStatus: "enabled", loadComplete: true });
+            this.setState({
+              status: "incomplete",
+              buttonStatus: "enabled",
+              loadComplete: true,
+            });
           } else {
-            this.setState({ status: "complete", buttonStatus: "disabled", loadComplete: true });
+            this.setState({
+              status: "complete",
+              buttonStatus: "disabled",
+              loadComplete: true,
+            });
           }
         }
       },
       // If there is an error then there is no application for the user
-      () => this.setState({ status: "incomplete", buttonStatus: "enabled", loadComplete: true })
+      () =>
+        this.setState({
+          status: "incomplete",
+          buttonStatus: "enabled",
+          loadComplete: true,
+        })
     );
   }
 

@@ -116,7 +116,7 @@ export const getApplication = (email, onSuccess, onFailure) => {
 // RSVP is an object consisting of a user's email and their rsvp_response (bool).
 // onSuccess will be called when the request was successful, and onFailure
 // will be called when it was unsucessful
-export const RSVPApplication = (RSVP, onSuccess, onFailure) => {
+export const RSVPApplication = (email, rsvp_response, onSuccess, onFailure) => {
   var requestOptions = {
     method: "PUT",
     headers: {
@@ -125,7 +125,8 @@ export const RSVPApplication = (RSVP, onSuccess, onFailure) => {
       "x-api-key": apiKey,
     },
     body: JSON.stringify({
-      application: RSVP,
+      email: email,
+      rsvp_response: rsvp_response
     }),
   };
 
