@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import { Row, Col, Container } from "react-bootstrap";
 
 import DashboardSidebar from "../../components/DashboardSidebar";
+import DashboardSidebarExec from "../../components/DashboardSidebarExec";
 import DashboardCard from "../../components/DashboardCard";
 import GradientBackground from "../../components/GradientBackground";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -137,7 +138,12 @@ export default class DashboardPage extends Component {
           <Container fluid>
             <Row>
               <Col sm="auto" className={styles.noPadding}>
+              {user_role === "exec" && (
+                <DashboardSidebarExec />
+              )}
+              {user_role === "hacker" && (
                 <DashboardSidebar />
+              )}
               </Col>
               {this.state.status &&
                 <Col className={styles.centerContent}>

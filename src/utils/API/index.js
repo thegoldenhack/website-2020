@@ -245,3 +245,20 @@ export const waitlistApplication = (applicationId, onSuccess, onFailure) => {
     .then((data) => onSuccess(data))
     .catch((error) => onFailure(error));
 };
+
+// Return all the events in the database.
+// We’ll probably want to paginate these somehow so we’re not returning a massive amount of information all the time.
+export const getAllEvents = (onSuccess, onFailure) => {
+  var requestOptions = {
+    method: "GET",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": true,
+      "x-api-key": apiKey,
+    },
+  };
+  fetch(apiEndpoint + `/getAllEvents`, requestOptions)
+    .then((response) => response.json())
+    .then((data) => onSuccess(data))
+    .catch((error) => onFailure(error));
+};
