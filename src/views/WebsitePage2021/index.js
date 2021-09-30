@@ -14,6 +14,7 @@ import caa_logo from "../../assets/sponsor_logos_2020/caa_logo.png";
 import canadian_tire_logo from "../../assets/sponsor_logos_2020/canadian_tire.png";
 import camplete_logo from "../../assets/sponsor_logos/camplete_logo.svg";
 import communitech_logo from "../../assets/sponsor_logos_2020/communitech.png";
+import copysmith_logo from "../../assets/sponsor_logos_2021/copysmith.png";
 import deloitte_logo from "../../assets/sponsor_logos_2020/deloitte.png";
 import df_logo from "../../assets/sponsor_logos/df_logo.png";
 import digital_ocean_logo from "../../assets/sponsor_logos_2021/digital_ocean.png";
@@ -23,8 +24,10 @@ import fossa_logo from "../../assets/sponsor_logos/fossa_logo.png";
 import figma_logo from "../../assets/sponsor_logos_2021/figma.png";
 import flipp_logo from "../../assets/sponsor_logos_2021/flipp.png";
 import jtdc_logo from "../../assets/sponsor_logos_2020/jtdc_logo.png";
+import laa_logo from "../../assets/sponsor_logos_2021/laa.png";
 import ldss_logo from "../../assets/sponsor_logos/ldss_logo.png";
 import maplesoft_logo from "../../assets/sponsor_logos_2021/maplesoft.png";
+import mef_logo from "../../assets/sponsor_logos_2021/mef.png";
 import next_canada_logo from "../../assets/sponsor_logos/next_canada_logo.png";
 import phi_logo from "../../assets/sponsor_logos/phi_logo.png";
 import pwc_logo from "../../assets/sponsor_logos_2021/pwc.png";
@@ -189,10 +192,13 @@ export default class WebsitePage extends Component {
                             ]}
                             bronze={[
                                 { title: "Awake Chocolate", logo: awake_logo, href: "https://awakechocolate.ca/"},
+                                { title: "Copysmith", logo: copysmith_logo, href: "https://copysmith.ai/"},
                                 { title: "Digital Ocean", logo: digital_ocean_logo, href: "https://www.digitalocean.com/" },
                                 { title: "Figma", logo: figma_logo, href: "https://figma.com/"},
                                 // { title: "Flipp", logo: flipp_logo, href: "https://flipp.com/"},
+                                { title: "Laurier Alumni Association", logo: laa_logo, href: "https://www.laurieralumni.ca/s/1681/15/index.aspx?pgid=490&gid=2" },
                                 { title: "Maplesoft", logo: maplesoft_logo, href: "https://www.maplesoft.com/" },
+                                { title: "Math Endowment Fund", logo: mef_logo, href: "https://uwaterloo.ca/math-endowment-fund/"},
                                 { title: "Roku", logo: roku_logo, href: "https://www.roku.com/en-ca/" },
                                 { title: "Sticker Mule", logo: sticker_mule_logo, href: "http://hackp.ac/mlh-stickermule-hackathons" },
                                 { title: "Voiceflow", logo: voiceflow_logo, href: "https://www.voiceflow.com/" },
