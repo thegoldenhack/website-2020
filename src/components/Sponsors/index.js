@@ -27,7 +27,7 @@ export default class Sponsors extends Component {
                 >
                 <Image
                   src={item.logo}
-                  className={styles.width35}
+                  className={styles.width50}
                   alt={item.title}
                   />
                 </a>
@@ -37,7 +37,25 @@ export default class Sponsors extends Component {
         </Row>
 
         {this.props.v2021 && 
-          <Row xs={1} md={1} className={styles.row}>
+          <Row xs={1} md={4} className={styles.row}>
+            {this.props.gold &&
+              this.props.gold.map((item) => (
+              <Col className={styles.col}>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                    <Image src={item.logo} className={styles.width80} alt={item.title} />
+                </a>
+              </Col>
+              ))
+            }
+          </Row>
+        }
+
+        {this.props.v2021 && 
+          <Row xs={2} md={2} className={styles.row}>
             {this.props.silver &&
               this.props.silver.map((item) => (
               <Col className={styles.col}>

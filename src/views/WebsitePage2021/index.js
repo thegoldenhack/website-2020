@@ -13,8 +13,10 @@ import awake_logo from "../../assets/sponsor_logos_2020/awake.png";
 import caa_logo from "../../assets/sponsor_logos_2020/caa_logo.png";
 import canadian_tire_logo from "../../assets/sponsor_logos_2020/canadian_tire.png";
 import camplete_logo from "../../assets/sponsor_logos/camplete_logo.svg";
+import cgi_logo from "../../assets/sponsor_logos_2021/cgi.png";
 import communitech_logo from "../../assets/sponsor_logos_2020/communitech.png";
 import copysmith_logo from "../../assets/sponsor_logos_2021/copysmith.png";
+import dcp_logo from "../../assets/sponsor_logos_2021/dcp.png";
 import deloitte_logo from "../../assets/sponsor_logos_2020/deloitte.png";
 import df_logo from "../../assets/sponsor_logos/df_logo.png";
 import digital_ocean_logo from "../../assets/sponsor_logos_2021/digital_ocean.png";
@@ -27,16 +29,20 @@ import jtdc_logo from "../../assets/sponsor_logos_2020/jtdc_logo.png";
 import laa_logo from "../../assets/sponsor_logos_2021/laa.png";
 import ldss_logo from "../../assets/sponsor_logos/ldss_logo.png";
 import maplesoft_logo from "../../assets/sponsor_logos_2021/maplesoft.png";
+import microsoft_logo from "../../assets/sponsor_logos_2021/microsoft.png";
 import mef_logo from "../../assets/sponsor_logos_2021/mef.png";
 import next_canada_logo from "../../assets/sponsor_logos/next_canada_logo.png";
 import phi_logo from "../../assets/sponsor_logos/phi_logo.png";
 import pwc_logo from "../../assets/sponsor_logos_2021/pwc.png";
+import redbull_logo from "../../assets/sponsor_logos_2021/redbull.png";
+import rogers_logo from "../../assets/sponsor_logos_2021/rogers.png";
 import roku_logo from "../../assets/sponsor_logos_2021/roku.png";
 import shopify_logo from "../../assets/sponsor_logos_2020/shopify_logo.png";
 import sticker_mule_logo from "../../assets/sponsor_logos_2021/sticker_mule_logo.png";
 import sunlife_logo from "../../assets/sponsor_logos_2020/sunlife_logo.png";
 import voiceflow_logo from "../../assets/sponsor_logos_2020/voiceflow_logo.png";
 import uphabit_logo from "../../assets/sponsor_logos_2020/uphabit_logo.png";
+import wealthsimple_logo from "../../assets/sponsor_logos_2021/wealthsimple.png";
 import wolfram_logo from "../../assets/sponsor_logos_2021/wolfram.png";
 import zebu_logo from "../../assets/sponsor_logos/zebu_logo.png";
 
@@ -186,19 +192,30 @@ export default class WebsitePage extends Component {
                     <Container>
                         <Sponsors
                             v2021={true}
-                            silver={[
-                                { title: "PwC", logo: pwc_logo, href: "https://www.pwc.com/" },
+                            keynote={[
                                 { title: "Dropbase", logo: dropbase_logo, href: "https://www.dropbase.io/" }
                             ]}
+                            gold={[
+                                { title: "DCP", logo: dcp_logo, href: "https://dcp.dev/" },
+                                { title: "Microsoft", logo: microsoft_logo, href: "https://www.microsoft.com/en-us/"},
+                                { title: "Rogers", logo: rogers_logo, href: "https://www.rogers.com/" },
+                                { title: "CGI", logo: cgi_logo, href: "https://www.cgi.com/en" },
+
+                            ]}
+                            silver={[
+                                { title: "PwC", logo: pwc_logo, href: "https://www.pwc.com/" },
+                                { title: "Wealthsimple", logo: wealthsimple_logo, href: "https://www.wealthsimple.com/en-ca/"},
+                            ]}
                             bronze={[
-                                { title: "Awake Chocolate", logo: awake_logo, href: "https://awakechocolate.ca/"},
-                                { title: "Copysmith", logo: copysmith_logo, href: "https://copysmith.ai/"},
+                                { title: "Awake Chocolate", logo: awake_logo, href: "https://awakechocolate.ca/" },
+                                { title: "Copysmith", logo: copysmith_logo, href: "https://copysmith.ai/" },
                                 { title: "Digital Ocean", logo: digital_ocean_logo, href: "https://www.digitalocean.com/" },
                                 { title: "Figma", logo: figma_logo, href: "https://figma.com/"},
                                 // { title: "Flipp", logo: flipp_logo, href: "https://flipp.com/"},
                                 { title: "Laurier Alumni Association", logo: laa_logo, href: "https://www.laurieralumni.ca/s/1681/15/index.aspx?pgid=490&gid=2" },
                                 { title: "Maplesoft", logo: maplesoft_logo, href: "https://www.maplesoft.com/" },
                                 { title: "Math Endowment Fund", logo: mef_logo, href: "https://uwaterloo.ca/math-endowment-fund/"},
+                                { title: "Redbull", logo: redbull_logo, href: "https://www.redbull.com/us-en/" },
                                 { title: "Roku", logo: roku_logo, href: "https://www.roku.com/en-ca/" },
                                 { title: "Sticker Mule", logo: sticker_mule_logo, href: "http://hackp.ac/mlh-stickermule-hackathons" },
                                 { title: "Voiceflow", logo: voiceflow_logo, href: "https://www.voiceflow.com/" },
