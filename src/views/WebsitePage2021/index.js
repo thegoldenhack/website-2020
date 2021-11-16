@@ -59,9 +59,7 @@ export default class WebsitePage extends Component {
     render() {
         return (
             <div>
-                <Navbar headings={["About", "Sponsors", "FAQ"]}
-                    apply={true}
-                />
+                <Navbar headings={["About", "Sponsors", "FAQ"]} />
                 
                 {/* Header */}
                 <div className={styles.background}>
@@ -76,8 +74,8 @@ export default class WebsitePage extends Component {
                                         <h1 className={styles.h1}>The</h1>
                                         <h1 className={styles.h1}>Golden</h1>
                                         <h1 className={styles.h1}>Hack</h1>
-                                        <h1 className={styles.h1}>3.0</h1>
-                                        <h4>October 2-3, 2021</h4>
+                                        <h1 className={styles.h1}>4.0</h1>
+                                        <h4>October 1-2, 2022</h4>
                                         <h4>Wilfrid Laurier University</h4>
                                     </Col>
                                     <Col md className={styles.flexCenter}>
@@ -104,7 +102,7 @@ export default class WebsitePage extends Component {
                             <Col lg>
                                 <h2 className={styles.h2}>Take on the Challenge!</h2>
                                 <p className={styles.white}>Unlock the best of both the tech and business worlds.</p>
-                                <p className={styles.white}>The GoldenHack 3.0: Oct 2-3, 2021.</p>
+                                <p className={styles.white}>Join us annually at Lazaridis Hall.</p>
                             </Col>
                         </Row>
                     </Container>
@@ -150,7 +148,7 @@ export default class WebsitePage extends Component {
                     <Container>
                         <Row className={styles.fullHeight}>
                             <Col>
-                                <h2 className={styles.h2}>Last Year We Had...</h2>
+                                <h2 className={styles.h2}>We've previously had...</h2>
                                 <Row>
                                     <Col md>
                                         <Row className={styles.alignItemsCenter}>
