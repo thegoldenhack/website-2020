@@ -9,7 +9,7 @@ export default class Sponsors extends Component {
       <Container>
         <div>
           {this.props.v2021 &&
-            <h1 className={styles.h1_2021}>TGH 3.0 Sponsors</h1>
+            <h1 className={styles.h1_2021}>TGH 4.0 Sponsors</h1>
           }
           {!this.props.v2021 &&
             <h1>Our Sponsors</h1>

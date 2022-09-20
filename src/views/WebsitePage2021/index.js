@@ -14,6 +14,7 @@ import caa_logo from "../../assets/sponsor_logos_2020/caa_logo.png";
 import canadian_tire_logo from "../../assets/sponsor_logos_2020/canadian_tire.png";
 import camplete_logo from "../../assets/sponsor_logos/camplete_logo.svg";
 import cgi_logo from "../../assets/sponsor_logos_2021/cgi.png";
+import codegem_logo from "../../assets/sponsor_logos_2021/codegem_logo.png";
 import communitech_logo from "../../assets/sponsor_logos_2020/communitech.png";
 import copysmith_logo from "../../assets/sponsor_logos_2021/copysmith.png";
 import dcp_logo from "../../assets/sponsor_logos_2021/dcp.png";
@@ -22,6 +23,7 @@ import df_logo from "../../assets/sponsor_logos/df_logo.png";
 import digital_ocean_logo from "../../assets/sponsor_logos_2021/digital_ocean.png";
 import dropbase_logo from "../../assets/sponsor_logos_2021/dropbase.png";
 import dspace_logo from "../../assets/sponsor_logos/dspace_logo.png";
+import echo3d_logo from "../../assets/sponsor_logos/echo3d_logo.png";
 import fossa_logo from "../../assets/sponsor_logos/fossa_logo.png";
 import figma_logo from "../../assets/sponsor_logos_2021/figma.png";
 import flipp_logo from "../../assets/sponsor_logos_2021/flipp.png";
@@ -45,6 +47,7 @@ import uphabit_logo from "../../assets/sponsor_logos_2020/uphabit_logo.png";
 import wealthsimple_logo from "../../assets/sponsor_logos_2021/wealthsimple.png";
 import wolfram_logo from "../../assets/sponsor_logos_2021/wolfram.png";
 import zebu_logo from "../../assets/sponsor_logos/zebu_logo.png";
+import standout_logo from "../../assets/sponsor_logos_2021/standout_stickers.png";
 
 import Particles from "../../components/Particles"
 import Navbar from "../../components/Navbar"
@@ -124,7 +127,7 @@ export default class WebsitePage extends Component {
                                     most of its talented business and design students.
                                 </p>
                                 <br />
-                                <h2 className={styles.h2}>Our Vision for a Hybrid Hackathon</h2>
+                                <h2 className={styles.h2}>Our Return to an in-person Hackathon</h2>
                                 <p className={styles.white}>
                                     With restrictions lifted, we are planning on bringing back an in-person overnight
                                     hackathon, including all the in-person activities that a hackathon normally has!
@@ -192,47 +195,55 @@ export default class WebsitePage extends Component {
                         <Sponsors
                             v2021={true}
                             keynote={[
-                                { title: "Dropbase", logo: dropbase_logo, href: "https://www.dropbase.io/" }
+                                // { title: "Dropbase", logo: dropbase_logo, href: "https://www.dropbase.io/" },
+                                // { title: "Digital Ocean", logo: digital_ocean_logo, href: "https://www.digitalocean.com/" },
                             ]}
                             gold={[
-                                { title: "DCP", logo: dcp_logo, href: "https://dcp.dev/" },
-                                { title: "Microsoft", logo: microsoft_logo, href: "https://www.microsoft.com/en-us/"},
-                                { title: "Rogers", logo: rogers_logo, href: "https://www.rogers.com/" },
-                                { title: "CGI", logo: cgi_logo, href: "https://www.cgi.com/en" },
+                                { title: "Digital Ocean", logo: digital_ocean_logo, href: "https://www.digitalocean.com/" },
+                                { title: "Awake Chocolate", logo: awake_logo, href: "https://awakechocolate.ca/" },
+                                { title: "Wolfram Language", logo: wolfram_logo, href: "https://www.wolfram.com/language/" },
+                                { title: "Roku", logo: roku_logo, href: "https://www.roku.com/en-ca/" }
 
                             ]}
                             silver={[
-                                { title: "PwC", logo: pwc_logo, href: "https://www.pwc.com/" },
-                                { title: "Wealthsimple", logo: wealthsimple_logo, href: "https://www.wealthsimple.com/en-ca/"},
+                                { title: "Echo3d", logo: echo3d_logo, href: "https://www.echo3d.co/" },
+                                { title: "CodeGem", logo: codegem_logo, href: "https://www.codegem.app/" },
+                                { title: "Standout Stickers", logo: standout_logo, href: "http://hackp.ac/mlh-StandOutStickers-hackathons" },
+                                // { title: "PwC", logo: pwc_logo, href: "https://www.pwc.com/" },
+                                // { title: "Wealthsimple", logo: wealthsimple_logo, href: "https://www.wealthsimple.com/en-ca/"},
                             ]}
                             bronze={[
-                                { title: "Awake Chocolate", logo: awake_logo, href: "https://awakechocolate.ca/" },
-                                { title: "Copysmith", logo: copysmith_logo, href: "https://copysmith.ai/" },
-                                { title: "Digital Ocean", logo: digital_ocean_logo, href: "https://www.digitalocean.com/" },
+                                // { title: "Awake Chocolate", logo: awake_logo, href: "https://awakechocolate.ca/" },
+                                // { title: "Copysmith", logo: copysmith_logo, href: "https://copysmith.ai/" },
+                                // { title: "Digital Ocean", logo: digital_ocean_logo, href: "https://www.digitalocean.com/" },
                                 { title: "Figma", logo: figma_logo, href: "https://figma.com/"},
-                                // { title: "Flipp", logo: flipp_logo, href: "https://flipp.com/"},
-                                { title: "Laurier Alumni Association", logo: laa_logo, href: "https://www.laurieralumni.ca/s/1681/15/index.aspx?pgid=490&gid=2" },
-                                { title: "Maplesoft", logo: maplesoft_logo, href: "https://www.maplesoft.com/" },
-                                { title: "Math Endowment Fund", logo: mef_logo, href: "https://uwaterloo.ca/math-endowment-fund/"},
+                                // { title: "Flipp", logo: flipp_logo, href: "https://flipp.com/"}, DON'T USE
+                                // { title: "Laurier Alumni Association", logo: laa_logo, href: "https://www.laurieralumni.ca/s/1681/15/index.aspx?pgid=490&gid=2" },
+                                // { title: "Maplesoft", logo: maplesoft_logo, href: "https://www.maplesoft.com/" },
+                                // { title: "Math Endowment Fund", logo: mef_logo, href: "https://uwaterloo.ca/math-endowment-fund/"},
                                 { title: "Redbull", logo: redbull_logo, href: "https://www.redbull.com/us-en/" },
-                                { title: "Roku", logo: roku_logo, href: "https://www.roku.com/en-ca/" },
-                                { title: "Sticker Mule", logo: sticker_mule_logo, href: "http://hackp.ac/mlh-stickermule-hackathons" },
-                                { title: "Voiceflow", logo: voiceflow_logo, href: "https://www.voiceflow.com/" },
-                                { title: "Wolfram Language", logo: wolfram_logo, href: "https://www.wolfram.com/language/" }
+                                // { title: "Roku", logo: roku_logo, href: "https://www.roku.com/en-ca/" },
+                                // { title: "Standout Stickers", logo: standout_logo, href: "http://hackp.ac/mlh-StandOutStickers-hackathons" },
+                                // { title: "Voiceflow", logo: voiceflow_logo, href: "https://www.voiceflow.com/" },
+                                // { title: "Wolfram Language", logo: wolfram_logo, href: "https://www.wolfram.com/language/" }
                             ]}
                             previous={[
                                 { title: "CAA", logo: caa_logo, href: "https://www.caa.ca/" },
                                 { title: "Camplete", logo: camplete_logo, href: "https://camplete.com/" },
                                 { title: "Canadian Tire", logo: canadian_tire_logo, href: "https://www.canadiantire.ca/en.html" },
+                                { title: "CGI", logo: cgi_logo, href: "https://www.cgi.com/en" },
                                 { title: "Communitech", logo: communitech_logo, href: "https://www.communitech.ca/" },
+                                { title: "DCP", logo: dcp_logo, href: "https://dcp.dev/" },
                                 { title: "Deloitte", logo: deloitte_logo, href: "https://www2.deloitte.com/ca/en.html" },
                                 { title: "DSpace", logo: dspace_logo, href: "https://www2.deloitte.com/ca/en/pages/technology/articles/welcome-to-d-space.html" },
                                 { title: "Dynamic Funds", logo: df_logo, href: "https://dynamic.ca/eng.html" },
                                 { title: "FOSSA", logo: fossa_logo, href: "http://fossa.ca/" },
                                 { title: "JTD Consulting", logo: jtdc_logo, href: "https://www.jtdc.ca/" },
                                 { title: "LDSS", logo: ldss_logo, href: "https://www.facebook.com/LaurierDataScienceSociety/" },
+                                { title: "Microsoft", logo: microsoft_logo, href: "https://www.microsoft.com/en-us/"},
                                 { title: "Next Canada", logo: next_canada_logo, href: "https://www.nextcanada.com/" },
                                 { title: "WLU Phi", logo: phi_logo, href: "https://www.facebook.com/wluPHI/" },
+                                { title: "Rogers", logo: rogers_logo, href: "https://www.rogers.com/" },
                                 { title: "Shopify", logo: shopify_logo, href: "https://www.shopify.ca/" },
                                 { title: "Sun Life Financial", logo: sunlife_logo, href: "https://www.sunlife.ca/en/" },
                                 { title: "Uphabit", logo: uphabit_logo, href: "https://www.uphabit.com/" },
