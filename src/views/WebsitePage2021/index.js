@@ -126,15 +126,16 @@ export default class WebsitePage extends Component {
                                 <br />
                                 <h2 className={styles.h2}>Our Vision for a Hybrid Hackathon</h2>
                                 <p className={styles.white}>
-                                    To create a supportive and inclusive community that sparks YOUR
-                                    creativity and entrepreneurial journey.
+                                    With restrictions lifted, we are planning on bringing back an in-person overnight
+                                    hackathon, including all the in-person activities that a hackathon normally has!
+                                    And to bring forward the business spirit forward, we'll be hosting our first
+                                    networking event at the event! So join us on Saturday, October 1 - Sunday, October 2 for our
+                                    4th hackathon, TGH 4.0!
                                 </p>
                                 <br />
                                 <p className={styles.white}>
-                                    In order to guarantee our participants have the best experience possible,
-                                    we are planning to organize our first ever hybrid hackathon. Our event
-                                    will be open to students world-wide and combine the best of digital
-                                    and physical events.
+                                    Please note that a vaccine policy (2 doses) policy will be in place, and may
+                                    change based on Laurier's health policies.
                                 </p>
 
                                 {/* <Button>Meet the Team</Button> */}
@@ -253,7 +254,7 @@ export default class WebsitePage extends Component {
                             <Col md>
                                 <FAQ
                                     faqs={[
-                                        { question: "How will the event be hosted?", answer: ["We are planning to host our opening and closing ceremonies from Laurier’s beautiful Lazaridis Hall on campus where we will also provide a study space for participants in the Waterloo region wishing to meet up with fellow hackers. All our workshops will be virtual but available for viewing in a lecture hall on campus and sponsors will be able to choose between sending representatives in person or calling in through Zoom.", "After having our options limited for so long, we want to give our sponsors and participants a chance to make the most of our event while feeling safe and comfortable."] },
+                                        { question: "How will the event be hosted?", answer: ["While the event itself will be hosted in-person, we are planning on live streaming our opening and closing ceremonies from Laurier’s beautiful Lazaridis Hall on campus. We will be providing food and study space for hackers, and the option to sleep overnight will be available!", "After having our options limited for so long, we want to give our sponsors and participants a chance to make the most of our event while feeling safe and comfortable."] },
                                         { question: "What if I don’t know how to code?", answer: ["No sweat. Our goal is to make this hackathon friendly to newcomers. We’ll have lots of mentors and workshops to help you get up and running. Hacking should be fun, not frustrating.", "Not interested in coding? We have plenty of business and design opportunities as well."] },
                                         { question: "Who can participate?", answer: ["Any University, College or Secondary School student 18 or older is welcome to participate."] },
                                         { question: "How many people can be on a team?", answer: ["Teams can range in size from 1-4 people.", "Don't have a team? No sweat! We'll be hosting a team-building activity during the event."] },
